@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const User = require('./User')
-const Reaction = require('./Reaction')
 
 const thoughtSchema = new mongoose.Schema({
   thoughtText: {
@@ -16,23 +14,21 @@ const thoughtSchema = new mongoose.Schema({
     get: formatDate
   },
   username: {
-    username: {
-      type: mongoose.Schema.Types.String,
-      required: true,
-      ref: "User"
-    }
+    type: String,
+    required: true,
   },
-  reactions: [{reactionsSchema}]
+  reactions: {}
 });
-
-const Thought = mongoose.model('Thought', thoughtSchema);
-
-const handleError = (err) => console.error(err);
 
 function formatDate (createdAt) {
   // Format date as MM/DD/YYYY
   return date.toLocaleDateString();
 }
+const Thought = mongoose.model('Thought', thoughtSchema);
 
-module.exports = Thought;
+const handleError = (err) => console.error(err);
+
+
+
+module.exports = User;
 

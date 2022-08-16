@@ -1,27 +1,35 @@
 const mongoose = require('mongoose');
 
 const reactionSchema = new mongoose.Schema({
-  thoughtText: {
+  reactionId: {
+    type: schema.ObjectId,
+    default: schema.ObjectId
+  },
+  reactionBody: {
     type: String,
-    minLength: 1,
-    maxlength: 280,
     required: true,
-    unique: true
+    maxlength: 280,
+  },
+  username: {
+    username: {
+      type: mongoose.Schema.Types.String,
+      required: true,
+      ref: "User"
+    }
   },
   createdAt: {
     type: Date,
     default: Date.now,
     get: formatDate
-  },
-  username: {
-    type: String,
-    required: true,
-  },
-  reactions: {}
+  }
 });
 
-const User = mongoose.model('User', userSchema);
+function formatDate (createdAt) {
+  // Format date as MM/DD/YYYY
+  return date.toLocaleDateString();
+}
+const Reaction = mongoose.model('Reaction', reactionSchema);
 
 const handleError = (err) => console.error(err);
 
-module.exports = User;
+module.exports = Reaction;
