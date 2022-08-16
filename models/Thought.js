@@ -21,8 +21,8 @@ const thoughtSchema = new mongoose.Schema({
       required: true,
       ref: "User"
     }
-  },
-  reactions: [{reactionsSchema}]
+  }
+  // ,reactions: [{reactionSchema}]
 });
 
 const Thought = mongoose.model('Thought', thoughtSchema);

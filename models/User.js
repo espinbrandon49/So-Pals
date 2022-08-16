@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     unique: true,
     required: true,
-    validate: [validateEmail, "Please fill a valid email address"],
+    // validate: [validateEmail, "Please fill a valid email address"],
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
       "Please fill a valid email address",
     ],
@@ -38,5 +38,24 @@ userSchema.virtual('friendCount').get(function () {
 const User = mongoose.model('User', userSchema);
 
 const handleError = (err) => console.error(err);
+
+// User.find({}).exec((err, collection) => {
+//   if (collection.length === 0) {
+//     User.insertMany(
+//       [
+//         { name: 'example1',
+//           email: 'email1@example.com'
+//         },
+//         { name: 'example2',
+//         email: 'email2@example.com' }
+//       ],
+//       (insertErr) => {
+//         if (insertErr) {
+//           handleError(insertErr);
+//         }
+//       }
+//     );
+//   }
+// });
 
 module.exports = User;
