@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Thought= require('./Thought')
+const {Schema, model} = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   username: {
     type: String,
     required: true,
@@ -18,16 +17,12 @@ const userSchema = new mongoose.Schema({
     ],
   },
   thoughts: [{
-    thoughtsText: {
-      type: mongoose.Schema.Types.String,
-      ref: "Thoughts"
-    }
+      type: Schema.Types.ObjectId,
+      ref: "Thought"
   }],
   friends: [{
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: 'User'
-    }
   }]
 });
 
@@ -35,27 +30,8 @@ userSchema.virtual('friendCount').get(function () {
   return this.friends.length
 });
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema);
 
 const handleError = (err) => console.error(err);
-
-// User.find({}).exec((err, collection) => {
-//   if (collection.length === 0) {
-//     User.insertMany(
-//       [
-//         { name: 'example1',
-//           email: 'email1@example.com'
-//         },
-//         { name: 'example2',
-//         email: 'email2@example.com' }
-//       ],
-//       (insertErr) => {
-//         if (insertErr) {
-//           handleError(insertErr);
-//         }
-//       }
-//     );
-//   }
-// });
 
 module.exports = User;

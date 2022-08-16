@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const Thought = require('../../models/Thought');
+const User = require('../../models/User');
 
 router.get('/all-thoughts', (req, res) => {
-  // Using model in route to find all documents that are instances of that model
   Thought.find({}, (err, result) => {
     if (result) {
       res.status(200).json(result);
@@ -25,26 +25,26 @@ router.get('/one-thought/:id', (req, res) => {
 });
 
 ///does not connect to user
-router.post('/new-thought', (req, res) => {
-  const newThought = new Thought(req.body);
+router.post('/new-thought', async (req, res) => {
+  const newThought = await new Thought(req.body);
   newThought.save();
   if (newThought) {
-    res.status(200).json(newThought);
+    let updateUser = await User.findOneAndUpdate(
+      {_id: req.body.userId},
+      {$push: {thoughts: newThought._id}},
+      {new: true}
+    )
+    res.status(200).json(updateUser);
   } else {
     console.log('Uh Oh, something went wrong');
     res.status(500).json({ message: 'something went wrong' });
   }
 });
 
-// Finds the first document with the name with the value equal to 'Kids' and updates that name to the provided URL param value
 router.put('/update-thought/:id', (req, res) => {
-  // Uses findOneAndUpdate() method on model
   Thought.findOneAndUpdate(
-    // Finds first document with name of "Kids"
     { _id: req.params.id },
-    // Replaces name with value in URL param
     { thoughtText: req.body.thoughtText ? req.body.thoughtText : Thought.thoughtText },
-    // Sets to true so updated document is returned; Otherwise original document will be returned
     { new: true },
     (err, result) => {
       if (result) {
@@ -58,7 +58,6 @@ router.put('/update-thought/:id', (req, res) => {
   );
 });
 
-// Finds first document that matches and deletes
 router.delete('/delete-thought/:id', (req, res) => {
   Thought.findOneAndDelete({ name: req.params.id }, (err, result) => {
     if (result) {
