@@ -1,9 +1,8 @@
 const router = require('express').Router();
-const User = require('../../models');
+const User = require('../../models/User');
 const connection = require('../../config/connection')
 
 router.get('/all-users', (req, res) => {
-  console.log('meow')
   // Using model in route to find all documents that are instances of that model
   User.find({}, (err, result) => {
     if (result) {
