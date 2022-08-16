@@ -16,4 +16,3 @@ db.once('open', () => {
 });
 
 //Which models model to use?    
-//seed the db like on models/user
