@@ -24,7 +24,6 @@ router.get('/one-user/:id', (req, res) => {
 });
 
 router.post('/new-user', (req, res) => {
-  console.log(req.body)
   const newUser = new User(req.body);
   newUser.save();
   if (newUser) {

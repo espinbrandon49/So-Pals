@@ -16,3 +16,6 @@ db.once('open', () => {
 });
 
 //Which models model to use?    
+//validate on puts
+// *************************HAS 3
+// * `GET` a single user by its `_id` and populated thought and friend data *********************

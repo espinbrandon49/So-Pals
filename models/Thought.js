@@ -16,11 +16,9 @@ const thoughtSchema = new mongoose.Schema({
     get: formatDate
   },
   username: {
-    username: {
       type: mongoose.Schema.Types.String,
       required: true,
       ref: "User"
-    }
   }
   // ,reactions: [{reactionSchema}]
 });
