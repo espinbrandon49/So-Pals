@@ -69,4 +69,40 @@ router.delete('/delete-thought/:id', (req, res) => {
   });
 });
 
+// **`/api/thoughts/:thoughtId/reactions`**
+// create a reaction
+router.post('/:thoughtId/reactions', async (req, res) => {
+  const newReaction = await req.body;
+
+  if (newReaction) {
+    const updateThought = await Thought.findOneAndUpdate(
+      {_id: req.params.thoughtId},
+      {$push: {reactions: newReaction}},
+      {new: true}
+    )
+    res.status(200).json(updateThought);
+  } else {
+    console.log('Uh Oh, something went wrong');
+    res.status(500).json({ message: 'something went wrong' });
+  }
+});
+
+// remove a reaction
+router.delete('/:thoughtId/:reactionsId', (req, res) => {
+  console.log(req.params.thoughtId)
+  Thought.findOneAndUpdate(
+    { _id: req.params.thoughtId },
+    {$pull: {reactions: req.params.reactionsId}},
+    (err, result) => {
+    if (result) {
+      res.status(200).json(result);
+      console.log(`Deleted: ${result}`);
+    } else {
+      console.log('Uh Oh, something went wrong');
+      res.status(500).json({ message: 'something went wrong' });
+    }
+  });
+});
+
+
 module.exports = router;
