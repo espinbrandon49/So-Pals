@@ -15,5 +15,7 @@ db.once('open', () => {
   });
 });
 
-//VALIDATE ALL DELETES FOR AN ITEM TO DELETE
-//What is this 	"__v": 0 ?
+// **BONUS**: Remove a user's associated thoughts when deleted
+// Use a getter method to format the timestamp on query
+// validate an element exists before updating or deleting 
+// separate routes and controller concerns 

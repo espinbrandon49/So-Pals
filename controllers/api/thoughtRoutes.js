@@ -88,23 +88,8 @@ router.post('/:thoughtId/reactions', async (req, res) => {
   }
 });
 
-// remove a reaction
-// router.delete('/:thoughtId/reactions', (req, res) => {
-//   console.log(req.params.thoughtId)
-//   Thought.findOneAndUpdate(
-//     { _id: req.params.thoughtId },
-//     {$pull: {reactions: {$eq: req.body.reactionId} }},
-//     (err, result) => {
-//     if (result) {
-//       res.status(200).json(result);
-//       console.log(`Deleted: ${result}`);
-//     } else {
-//       console.log('Uh Oh, something went wrong');
-//       res.status(500).json({ message: 'something went wrong' });
-//     }
-//   });
-// });
 
+// remove a reaction
 router.delete('/:thoughtId/reactions', (req, res) => {
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
