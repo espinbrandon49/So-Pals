@@ -24,7 +24,6 @@ router.get('/one-thought/:id', (req, res) => {
   });
 });
 
-///does not connect to user
 router.post('/new-thought', async (req, res) => {
   const newThought = await new Thought(req.body);
   newThought.save();
