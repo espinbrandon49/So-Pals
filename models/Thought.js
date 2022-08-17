@@ -15,17 +15,28 @@ const thoughtSchema = new mongoose.Schema({
     get: formatDate
   },
   username: {
-      type: String,
-      required: true,
+    type: String,
+    required: true,
   },
   reactions: [reactionSchema]
+},
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false, 
+  }
+);
+
+thoughtSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length;
 });
 
 const Thought = mongoose.model('Thought', thoughtSchema);
 
 const handleError = (err) => console.error(err);
 
-function formatDate (createdAt) {
+function formatDate(createdAt) {
   // Format date as MM/DD/YYYY
   return date.toLocaleDateString();
 }

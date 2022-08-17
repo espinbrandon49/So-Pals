@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { findOne } = require('../../models/Thought');
 const Thought = require('../../models/Thought');
 const User = require('../../models/User');
 
@@ -29,9 +30,9 @@ router.post('/new-thought', async (req, res) => {
   newThought.save();
   if (newThought) {
     let updateUser = await User.findOneAndUpdate(
-      {_id: req.body.userId},
-      {$push: {thoughts: newThought._id}},
-      {new: true}
+      { _id: req.body.userId },
+      { $push: { thoughts: newThought._id } },
+      { new: true }
     )
     res.status(200).json(updateUser);
   } else {
@@ -76,9 +77,9 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 
   if (newReaction) {
     const updateThought = await Thought.findOneAndUpdate(
-      {_id: req.params.thoughtId},
-      {$push: {reactions: newReaction}},
-      {new: true}
+      { _id: req.params.thoughtId },
+      { $push: { reactions: newReaction } },
+      { new: true }
     )
     res.status(200).json(updateThought);
   } else {
@@ -88,20 +89,35 @@ router.post('/:thoughtId/reactions', async (req, res) => {
 });
 
 // remove a reaction
-router.delete('/:thoughtId/:reactionsId', (req, res) => {
-  console.log(req.params.thoughtId)
+// router.delete('/:thoughtId/reactions', (req, res) => {
+//   console.log(req.params.thoughtId)
+//   Thought.findOneAndUpdate(
+//     { _id: req.params.thoughtId },
+//     {$pull: {reactions: {$eq: req.body.reactionId} }},
+//     (err, result) => {
+//     if (result) {
+//       res.status(200).json(result);
+//       console.log(`Deleted: ${result}`);
+//     } else {
+//       console.log('Uh Oh, something went wrong');
+//       res.status(500).json({ message: 'something went wrong' });
+//     }
+//   });
+// });
+
+router.delete('/:thoughtId/reactions', (req, res) => {
   Thought.findOneAndUpdate(
     { _id: req.params.thoughtId },
-    {$pull: {reactions: req.params.reactionsId}},
+    { $pull: { reactions: { reactionId: req.body.reactionId } } },
     (err, result) => {
-    if (result) {
-      res.status(200).json(result);
-      console.log(`Deleted: ${result}`);
-    } else {
-      console.log('Uh Oh, something went wrong');
-      res.status(500).json({ message: 'something went wrong' });
-    }
-  });
+      if (result) {
+        res.status(200).json(result);
+        console.log(`Deleted: ${result}`);
+      } else {
+        console.log('Uh Oh, something went wrong');
+        res.status(500).json({ message: 'something went wrong' });
+      }
+    });
 });
 
 
