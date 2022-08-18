@@ -77,7 +77,6 @@ module.exports = {
   // create a reaction
   async postNewReaction(req, res){
     const newReaction = await req.body;
-  
     if (newReaction) {
       const updateThought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },
@@ -93,8 +92,6 @@ module.exports = {
   
   // remove a reaction
   deleteReaction(req, res){
-    console.log(req.params.thoughtId)
-    console.log(req.body._id)
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { _id: req.body._id } } },

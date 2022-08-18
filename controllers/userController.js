@@ -59,17 +59,41 @@ module.exports = {
   },
 
   //delete user
+  // deleteUser(req, res) {
+  //   User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
+  //     if (result) {
+  //       res.status(200).json(result);
+  //       console.log(`Deleted: ${result}`);
+  //     } else {
+  //       console.log('Uh Oh, something went wrong');
+  //       res.status(500).json({ message: 'something went wrong' });
+  //     }
+  //   });
+  // },
+
   deleteUser(req, res) {
-    User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
+  User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
       if (result) {
-        res.status(200).json(result);
+        console.log(result.username)
+  Thought.deleteMany({ username: { $eq: result.username } }).then(function () {
+          console.log("Data deleted"); // Success
+        }).catch(function (error) {
+          console.log(error); // Failure
+        });
+        console.log(result.username)
         console.log(`Deleted: ${result}`);
       } else {
         console.log('Uh Oh, something went wrong');
-        res.status(500).json({ message: 'something went wrong' });
       }
     });
+    // Thought.deleteMany({ username: { $eq: username } }).then(function () {
+    //   console.log("Data deleted"); // Success
+    // }).catch(function (error) {
+    //   console.log(error); // Failure
+    // });
+    res.status(200).json({ msg: 'TEST added' });
   },
+  // https://www.codegrepper.com/code-examples/javascript/loop+through+mongoose.all%28%29
 
   // add a new friend to a user's friend list
   addFriend(req, res) {
@@ -108,17 +132,7 @@ module.exports = {
 
 //////////////////////////////////////////////////////
 
-// router.delete('/delete-user/:id', (req, res) => {
-//   // User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
-//   //   if (result) {
-//   //     res.status(200).json(result);
-//   //     console.log(`Deleted: ${result}`);
-//   //   } else {
-//   //     console.log('Uh Oh, something went wrong');
-//   //     res.status(500).json({ message: 'something went wrong' });
-//   //   }
-
-//   // });
+// deleteUser(req, res) {
 //   User.findOne({ _id: { $eq: req.params.id } }, function (err, result) {
 //     if (err) {
 //       console.log(err)
@@ -127,15 +141,15 @@ module.exports = {
 //       console.log("Result : ", result);
 //       console.log(User.username)
 //       console.log(this.username)
-
-//       Thought.deleteMany({ _id: { $eq: result.thoughts } }).then(function () {
-//         console.log("Data deleted"); // Success
-//       }).catch(function (error) {
-//         console.log(error); // Failure
-//       });
+//       // Thought.deleteMany({ _id: { $eq: result.thoughts } }).then(function () {
+//       //   console.log("Data deleted"); // Success
+//       // }).catch(function (error) {
+//       //   console.log(error); // Failure
+//       // });
 //     }
 //   });
-// }); https://www.codegrepper.com/code-examples/javascript/loop+through+mongoose.all%28%29
+// }; 
+// // https://www.codegrepper.com/code-examples/javascript/loop+through+mongoose.all%28%29
 
 // router.delete('/delete-user/:id', (req, res) => {
 //   User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
