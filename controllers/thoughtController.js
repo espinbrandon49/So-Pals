@@ -25,23 +25,7 @@ module.exports = {
     });
   },
   
-  // //create a new thought
-  // postNewThought(req, res){
-  //   const newThought = new Thought(req.body);
-  //   newThought.save();
-  //   if (newThought) {
-  //     let updateUser = User.findOneAndUpdate(
-  //       { _id: req.body.userId },
-  //       { $push: { thoughts: newThought._id } },
-  //       { new: true }
-  //     )
-  //     res.status(200).json(updateUser);
-  //   } else {
-  //     console.log('Uh Oh, something went wrong');
-  //     res.status(500).json({ message: 'something went wrong' });
-  //   }
-  // },
-
+  //create new thought
   async postNewThought(req, res){
     const newThought = await new Thought(req.body);
     newThought.save();
@@ -89,25 +73,6 @@ module.exports = {
     });
   },
   
-  // **`/api/thoughts/:thoughtId/reactions`**
-  // create a reaction
-  // router.post('/:thoughtId/reactions', async (req, res) => {
-  //   const newReaction = await req.body;
-  
-  //   if (newReaction) {
-  //     const updateThought = await Thought.findOneAndUpdate(
-  //       { _id: req.params.thoughtId },
-  //       { $push: { reactions: newReaction } },
-  //       { new: true }
-  //     )
-  //     res.status(200).json(updateThought);
-  //   } else {
-  //     console.log('Uh Oh, something went wrong');
-  //     res.status(500).json({ message: 'something went wrong' });
-  //   }
-  // }),
-
- // **`/api/thoughts/:thoughtId/reactions`**
   // create a reaction
   async postNewReaction(req, res){
     const newReaction = await req.body;
