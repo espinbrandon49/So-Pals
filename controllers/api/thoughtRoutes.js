@@ -1,7 +1,8 @@
 const router = require('express').Router();
-const { findOne } = require('../../models/Thought');
-const Thought = require('../../models/Thought');
-const User = require('../../models/User');
+const {Thought, User} = require('../../models')
+// const { findOne } = require('../../models/Thought');
+// const Thought = require('../../models/Thought');
+// const User = require('../../models/User');
 
 router.get('/all-thoughts', (req, res) => {
   Thought.find({}, (err, result) => {

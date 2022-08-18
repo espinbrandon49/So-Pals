@@ -1,9 +1,10 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+const {Schema, model} = require('mongoose')
 
-const reactionSchema = new mongoose.Schema({
+const reactionSchema = new Schema({
   reactionId: {
-    type: mongoose.Schema.Types.ObjectId,
-    default: () => new mongoose.Types.ObjectId()
+    type: Schema.Types.ObjectId,
+    default: () => new Types.ObjectId()
   },
   reactionBody: {
     type: String,
@@ -17,14 +18,19 @@ const reactionSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: formatDate
   }
-});
+},
+{
+  toJSON: {
+    virtuals: true,
+  },
+  id: false, 
+},
+);
 
-function formatDate(createdAt) {
-  // Format date as MM/DD/YYYY
-  return date.toLocaleDateString();
-}
+reactionSchema.virtual('formatDate').get(function () {
+  return this.createdAt.toLocaleDateString();
+})
 
 const handleError = (err) => console.error(err);
 
