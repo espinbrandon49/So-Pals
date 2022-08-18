@@ -1,5 +1,4 @@
-// const mongoose = require('mongoose');
-const {Schema, model} = require('mongoose')
+const { Schema, model } = require('mongoose')
 
 const reactionSchema = new Schema({
   reactionId: {
@@ -20,12 +19,12 @@ const reactionSchema = new Schema({
     default: Date.now,
   }
 },
-{
-  toJSON: {
-    virtuals: true,
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
   },
-  id: false, 
-},
 );
 
 reactionSchema.virtual('formatDate').get(function () {
