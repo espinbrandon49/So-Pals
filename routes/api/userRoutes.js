@@ -12,10 +12,10 @@ const {
 // /api/users/
 router.route('/').get(getUsers).post(createUser)
 
-// /api/users/:id
+// /api/users/:id/
 router.route('/one-user/:id').get(getSingleUser).put(updateUser).delete(deleteUser)
 
-// /:userId/friends/:friendId
+// /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId').post(addFriend).delete(removeFriend);
 
 module.exports = router;

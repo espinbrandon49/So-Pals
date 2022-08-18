@@ -62,7 +62,8 @@ module.exports = {
   
   //delete a thought
   deleteThought(req, res) {
-    Thought.findOneAndDelete({ name: req.params.id }, (err, result) => {
+    console.log(req.params.id)
+    Thought.findOneAndDelete({ _id: req.params.id }, (err, result) => {
       if (result) {
         res.status(200).json(result);
         console.log(`Deleted: ${result}`);
