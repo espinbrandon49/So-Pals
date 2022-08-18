@@ -127,9 +127,11 @@ module.exports = {
   
   // remove a reaction
   deleteReaction(req, res){
+    console.log(req.params.thoughtId)
+    console.log(req.body._id)
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.body.reactionId } } },
+      { $pull: { reactions: { _id: req.body._id } } },
       (err, result) => {
         if (result) {
           res.status(200).json(result);
