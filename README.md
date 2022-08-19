@@ -1,3 +1,5 @@
 # So-Pals
 
-![soPalDemo](https://user-images.githubusercontent.com/102924713/185540448-73e4ed38-6d14-4d8d-ac57-3c16ba221039.png)
+
+https://user-images.githubusercontent.com/102924713/185540904-65dd66db-eabb-4f99-8d2e-6b2b5d63ef49.mp4
+
