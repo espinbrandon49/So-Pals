@@ -58,7 +58,7 @@ module.exports = {
     );
   },
 
-  // delete user and associated thoughts
+  // delete user AND associated thoughts
   deleteUser(req, res) {
     User.findOneAndDelete({ _id: req.params.id }, (err, result) => {
       if (result) {
